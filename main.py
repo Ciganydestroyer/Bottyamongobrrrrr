@@ -1,7 +1,5 @@
 from button import Buttons
-import packages.keyboard
-from packages.colorama import Fore,Back,init
-init(autoreset=True)
+import msvcrt
 import time
 import os
 
@@ -15,18 +13,29 @@ class Player:
         self.lvl = lvl
 
 def renderer():
-    clear = lambda: os.system('cls')
-    clear()
+    ##clear = lambda: os.system('cls')
+    ##clear()
+
+    for i in range(0, len(Current_Menu)):
+        if (Current_Menu[i].default == True):
+            if(Current_Menu[i].text.count("<=") > 0):
+                continue
+            else:
+                Current_Menu[i].text += " <="
+        else:
+            Current_Menu[i].text = Current_Menu[i].text.replace(" <=", "")
 
     Bottyamon_MainTitle()
     Start.Align_Center()
     Start.CreateButton()
-    TEST1.Align_Center()
-    TEST1.CreateButton()
-    TEST2.Align_Center()
-    TEST2.CreateButton()
+    Options.Align_Center()
+    Options.CreateButton()
+    Quit.Align_Center()
+    Quit.CreateButton()
+
 
 def Bottyamon_MainTitle():
+    print("\n")
     print(r"+-------------------------------------------------------------------------------------------------------+")
     print(r"|                                                                                                       |")
     print(r"|      /$$$$$$$              /$$     /$$                                                                |")
@@ -49,23 +58,57 @@ Bottyamon_MainTitle()
 Start = Buttons("START",20,5,True)
 
 
-TEST1 = Buttons("OPTIONS",20,5,False)
-TEST1.Align_Center()
-TEST1.CreateButton()
+Options = Buttons("OPTIONS",20,5,False)
+Options.Align_Center()
+Options.CreateButton()
 
-TEST2 = Buttons("QUIT",20,5,False)
-TEST2.Align_Center()
-TEST2.CreateButton()
+Quit = Buttons("QUIT",20,5,False)
+Quit.Align_Center()
+Quit.CreateButton()
 
-Current_Menu = [Start,TEST1,TEST2]
+Current_Menu = [Start,Options,Quit]
 
-for i in range(0, len(Current_Menu)):
-    if(Current_Menu[i].default == True):
-        Current_Menu[i].text += " <="
-    else:
-        Current_Menu[i].text.replace("<=","")
 
+renderer()
 
 while True:
-    renderer()
-    time.sleep(0.5)
+    if msvcrt.kbhit():
+        key = msvcrt.getch()
+        print(key)
+        if key == b'q':
+            exit(0)
+
+        if key == b's':
+            for i in range(0, len(Current_Menu)):
+                if (Current_Menu[i].default == True):
+                    Current_Menu[i].default = False
+                    if(i == len(Current_Menu) - 1):
+                        Current_Menu[0].default = True
+                    else:
+                        Current_Menu[i + 1].default = True
+                    break
+
+        if key == b'w':
+            for i in range(0, len(Current_Menu)):
+                if (Current_Menu[i].default == True):
+                    Current_Menu[i].default = False
+                    Current_Menu[i - 1].default = True
+                    break
+
+        if key == b'\r':
+            text = ""
+
+            for i in range(0, len(Current_Menu)):
+                if (Current_Menu[i].default == True):
+                    text = Current_Menu[i].text
+
+            if(text == "START"):
+                pass
+                ##TODO: Start a game from another file
+            if(text == "OPTIONS"):
+                pass
+                ##TODO: Add so u can change the controls
+            if text.startswith("QUIT"):
+                exit(0)
+
+        renderer()
