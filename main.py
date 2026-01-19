@@ -13,8 +13,8 @@ class Player:
         self.lvl = lvl
 
 def renderer():
-    ##clear = lambda: os.system('cls')
-    ##clear()
+    clear = lambda: os.system('cls')
+    clear()
 
     for i in range(0, len(Current_Menu)):
         if (Current_Menu[i].default == True):
@@ -59,12 +59,8 @@ Start = Buttons("START",20,5,True)
 
 
 Options = Buttons("OPTIONS",20,5,False)
-Options.Align_Center()
-Options.CreateButton()
 
 Quit = Buttons("QUIT",20,5,False)
-Quit.Align_Center()
-Quit.CreateButton()
 
 Current_Menu = [Start,Options,Quit]
 
@@ -74,9 +70,26 @@ renderer()
 while True:
     if msvcrt.kbhit():
         key = msvcrt.getch()
-        print(key)
-        if key == b'q':
-            exit(0)
+
+        if key in (b'\x00', b'\xe0'): # UP and DOWN arrowkeys
+            key = msvcrt.getch()
+
+            if key == b'H': #UP
+                for i in range(len(Current_Menu)):
+                    if Current_Menu[i].default:
+                        Current_Menu[i].default = False
+                        Current_Menu[i - 1].default = True
+                        break
+
+            if key == b'P': #DOWN
+                for i in range(len(Current_Menu)):
+                    if Current_Menu[i].default:
+                        Current_Menu[i].default = False
+                        if i == len(Current_Menu) - 1:
+                            Current_Menu[0].default = True
+                        else:
+                            Current_Menu[i + 1].default = True
+                        break
 
         if key == b's':
             for i in range(0, len(Current_Menu)):
@@ -102,10 +115,10 @@ while True:
                 if (Current_Menu[i].default == True):
                     text = Current_Menu[i].text
 
-            if(text == "START"):
+            if text.startswith("START"):
                 pass
                 ##TODO: Start a game from another file
-            if(text == "OPTIONS"):
+            if text.startswith("OPTIONS"):
                 pass
                 ##TODO: Add so u can change the controls
             if text.startswith("QUIT"):
