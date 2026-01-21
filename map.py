@@ -1,0 +1,1 @@
+##TODO: add a pro way to parse the map in types.txt

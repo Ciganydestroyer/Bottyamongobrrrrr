@@ -1,6 +1,5 @@
 from button import Buttons
 import msvcrt
-import time
 import os
 
 class Player:
@@ -117,10 +116,8 @@ while True:
 
             if text.startswith("START"):
                 pass
-                ##TODO: Start a game from another file
             if text.startswith("OPTIONS"):
                 pass
-                ##TODO: Add so u can change the controls
             if text.startswith("QUIT"):
                 exit(0)
 
