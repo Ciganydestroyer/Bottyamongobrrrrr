@@ -1,15 +1,7 @@
 from button import Buttons
+from world import Game_Start
 import msvcrt
 import os
-
-class Player:
-    def __init__(self, hp, attack, defense, speed, critchance, lvl):
-        self.hp = hp
-        self.attack = attack
-        self.defense = defense
-        self.speed = speed
-        self.critchance = critchance
-        self.lvl = lvl
 
 def renderer():
     clear = lambda: os.system('cls')
@@ -115,7 +107,8 @@ while True:
                     text = Current_Menu[i].text
 
             if text.startswith("START"):
-                pass
+                Game_Start()
+                exit(0)
             if text.startswith("OPTIONS"):
                 pass
             if text.startswith("QUIT"):

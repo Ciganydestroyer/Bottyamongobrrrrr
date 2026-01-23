@@ -1,7 +1,4 @@
 class Map:
-    def __init__(self,water):
-        self.water = water
-
     def Parse_Map(self):
         file = open("types.txt","r")
 
@@ -25,7 +22,3 @@ class Map:
                 temp = []
 
         return bettermap
-
-fasz = Map(False)
-
-what = fasz.Parse_Map_Electric_Bogoloo()
