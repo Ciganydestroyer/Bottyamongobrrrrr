@@ -1,6 +1,6 @@
 class Map:
     def Parse_Map(self):
-        file = open("types.txt","r")
+        file = open("types.txt","r", encoding="UTF-8")
 
         map = []
 
