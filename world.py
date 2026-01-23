@@ -21,7 +21,7 @@ class Player:
         self.inventory = inventory
         self.money = money
 
-player = Player(16, 24, 0, 0, None, 0)
+player = Player(9, 25, 4, 0, None, 0)
 
 def Game_Start():
     print("Before anything starts what will your Bottyamon name will be?")
@@ -41,17 +41,25 @@ def Game_Start():
             if key == b'd':
                 player.y += 1
 
+            grid = len(actual_map[player.mapx][player.mapy])
+
+            #TODO: Add the fucking movement im tired
+
             Game_Render()
+            print(grid)
 
 
-
+game_map = Map()
+actual_map = [[None,game_map.Get_Map_From_Type(15),game_map.Get_Map_From_Type(8),None,None,game_map.Get_Map_From_Type(7),game_map.Get_Map_From_Type(17),None],
+              [game_map.Get_Map_From_Type(7),game_map.Get_Map_From_Type(1),game_map.Get_Map_From_Type(16),game_map.Get_Map_From_Type(5),game_map.Get_Map_From_Type(5),game_map.Get_Map_From_Type(18),None,game_map.Get_Map_From_Type(13)],
+              [game_map.Get_Map_From_Type(20),None,game_map.Get_Map_From_Type(11),None,None,game_map.Get_Map_From_Type(2),game_map.Get_Map_From_Type(5),game_map.Get_Map_From_Type(19)],
+              [game_map.Get_Map_From_Type(2),game_map.Get_Map_From_Type(12),None,None,game_map.Get_Map_From_Type(7),game_map.Get_Map_From_Type(4),None,None],
+              [game_map.Get_Map_From_Type(11),None,None,game_map.Get_Map_From_Type(21),game_map.Get_Map_From_Type(1),game_map.Get_Map_From_Type(10),None,None]]
 
 def Game_Render():
     clear = lambda: os.system('cls')
     clear()
-
-    game_map = Map()
-    grid = game_map.Parse_Map_Electric_Bogoloo()[0]
+    grid = actual_map[player.mapx][player.mapy]
 
     for row_index, row in enumerate(grid):
         line = row[0]  # extract the actual string

@@ -22,3 +22,8 @@ class Map:
                 temp = []
 
         return bettermap
+
+    def Get_Map_From_Type(self,type):
+        maps = self.Parse_Map_Electric_Bogoloo()
+
+        return maps[type]
