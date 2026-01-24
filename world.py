@@ -43,10 +43,76 @@ def Game_Start():
 
             grid = len(actual_map[player.mapx][player.mapy])
 
-            #TODO: Add the fucking movement im tired
+            debounce = True
+
+            if player.x == 0 and debounce:
+                debounce = False
+                player.mapx -= 1
+
+                new_grid = len(actual_map[player.mapx][player.mapy])
+
+                if new_grid == grid:
+                    player.x = grid - 3
+                else:
+                    player.x = new_grid - 3
+                    if(new_grid > 25):
+                        player.y += int(new_grid / 2) + 3
+                    else:
+                        player.y -= int(new_grid / 2) + 12 #Btw new_grid has no relation to the length but if it works don't touch it
+
+
+            if player.x == grid - 2 and debounce:
+                debounce = False
+                player.mapx += 1
+                player.x = 1
+
+                new_grid = len(actual_map[player.mapx][player.mapy])
+
+                if new_grid != grid:
+                    if (new_grid > 25):
+                        player.y += int(new_grid / 2) + 3
+                    else:
+                        player.y -= int(new_grid / 2) + 12
+
+            if player.y == 1 and debounce:
+                debounce = False
+                player.mapy -= 1
+
+                map_length = 0
+                new_grid = len(actual_map[player.mapx][player.mapy])
+
+                if (new_grid == 20):
+                    map_length = 50
+                else:
+                    map_length = 100
+
+                player.y = map_length - 3
+
+                if new_grid != grid:
+                    if (new_grid > 25):
+                        player.x += 8
+                    else:
+                        player.x -= 8
+
+            if (grid == 20):
+                map_length = 50
+            else:
+                map_length = 100
+
+
+            if player.y == map_length - 2 and debounce:
+                player.mapy += 1
+                player.y = 2
+
+                new_grid = len(actual_map[player.mapx][player.mapy])
+
+                if new_grid != grid:
+                    if (new_grid > 25):
+                        player.x += 8
+                    else:
+                        player.x -= 8
 
             Game_Render()
-            print(grid)
 
 
 game_map = Map()
