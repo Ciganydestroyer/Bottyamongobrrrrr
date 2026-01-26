@@ -1,29 +1,15 @@
 class Map:
-    def Parse_Map(self):
-        file = open("types.txt","r", encoding="UTF-8")
-
-        map = []
-
-        for i in file:
-            map.append(i.replace("\n","").split("@"))
-
-
-        return map
-
-    def Parse_Map_Electric_Bogoloo(self):
-        map = self.Parse_Map()
+    def Get_Map_From_Type(self,type_index):
         bettermap = []
         temp = []
 
-        for i in map:
-            temp.append(i)
-            if(i.count('') == 2):
-                bettermap.append(temp)
-                temp = []
+        with open("types.txt", "r", encoding="UTF-8") as file:
+            for i in file:
+                row = i.strip().split("@")
+                temp.append(row)
 
-        return bettermap
+                if row.count('') == 2:
+                    bettermap.append(temp)
+                    temp = []
 
-    def Get_Map_From_Type(self,type):
-        maps = self.Parse_Map_Electric_Bogoloo()
-
-        return maps[type]
+        return bettermap[type_index]

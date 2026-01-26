@@ -33,13 +33,28 @@ def Game_Start():
         if msvcrt.kbhit():
             key = msvcrt.getch()
             if key == b'w':
-                player.x -= 1
+                value = str(actual_map[player.mapx][player.mapy][player.x - 1])[player.y]
+
+                if(value == ' ' or value == '🟩' or value == '⬜'):
+                    player.x -= 1
+
             if key == b'a':
-                player.y -= 1
+                value = str(actual_map[player.mapx][player.mapy][player.x])[player.y + 1]
+
+                if (value == ' ' or value == '🟩' or value == '⬜'):
+                    player.y -= 1
+
             if key == b's':
-                player.x += 1
+                value = str(actual_map[player.mapx][player.mapy][player.x + 1])[player.y]
+
+                if (value == ' ' or value == '🟩' or value == '⬜'):
+                    player.x += 1
+
             if key == b'd':
-                player.y += 1
+                value = str(actual_map[player.mapx][player.mapy][player.x])[player.y + 4]
+
+                if (value == ' ' or value == '🟩' or value == '⬜'):
+                    player.y += 1
 
             grid = len(actual_map[player.mapx][player.mapy])
 
@@ -126,6 +141,9 @@ def Game_Render():
     clear = lambda: os.system('cls')
     clear()
     grid = actual_map[player.mapx][player.mapy]
+
+    print(player.x)
+    print(player.y)
 
     for row_index, row in enumerate(grid):
         line = row[0]  # extract the actual string
