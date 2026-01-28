@@ -4,8 +4,7 @@ import msvcrt
 import os
 
 def renderer():
-    clear = lambda: os.system('cls')
-    clear()
+    os.system("cls")
 
     for i in range(0, len(Current_Menu)):
         if (Current_Menu[i].default == True):
