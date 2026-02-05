@@ -16,10 +16,6 @@ Turns = 0
 Chosen_Bottyamon = 0
 
 def load_last_save():
-    """
-    Veszítéskor visszatölti a legutóbbi mentést (save.json) a world modulba,
-    majd visszarendereli a mapot.
-    """
     global Turns, Status, Flavor_text
 
     from saves import read_save
@@ -39,7 +35,6 @@ def load_last_save():
     world.Game_Render()
 
 def _decrement_item(item_name: str) -> bool:
-    """Csökkent 1-et az inventory itemen. True ha volt és levonta."""
     inv = world.player.inventory
     if inv.get(item_name, 0) <= 0:
         return False
@@ -104,17 +99,13 @@ def Combat():
     combat_renderer()
 
     while True:
-        # Ha közben vége lett a harcnak, ezt itt kezeljük (nem exit()-tel!)
         if Status == "WON":
-            # Szintlépés: minden győzelem után +1 lvl és 10% stat növekedés
             b = world.Bottyamons[Chosen_Bottyamon]
             b.lvl += 1
             b.maxhp = int(round(b.maxhp * 1.1))
             b.attack = int(round(b.attack * 1.1))
             b.defense = int(round(b.defense * 1.1))
             b.speed = int(round(b.speed * 1.1))
-            # gyógyítás maxra, hogy érezhető legyen a növekedés
-            b.hp = b.maxhp
 
             # Pénzjutalom győzelemért (100-250)
             reward = random.randint(100, 250)

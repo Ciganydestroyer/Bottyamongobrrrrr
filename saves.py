@@ -5,15 +5,11 @@ from world import Player, Bottyamon
 
 
 def save(filename: str = "save.json"):
-    # Importálás függvényen belül: elkerüli a körkörös importok miatti meglepetéseket,
-    # és mindig a world aktuális globális állapotát olvassa.
     import world
 
     save_data = {
         "player": world.player.to_dict(),
-        # Új formátum: több Bottyamon támogatása
         "bottyamons": [b.to_dict() for b in world.Bottyamons],
-        # Régi (legacy) kulcs: visszafelé kompatibilitás régi mentésekkel / kódrészekkel
         "bottyamon": world.Bottyamons[0].to_dict() if world.Bottyamons else None,
     }
 

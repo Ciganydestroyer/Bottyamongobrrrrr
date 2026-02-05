@@ -96,9 +96,10 @@ def Game_Start():
                             if doorx == 25 and doory == 66:
                                 Status = "SHOP"
 
-            if key == b'i':
-                for i in player.inventory:
-                    print(i, player.inventory[i])
+            if key == b'q':
+                from saves import save
+                save("save.json")
+                exit(0)
 
 
             grid = len(actual_map[player.mapx][player.mapy])
@@ -227,13 +228,13 @@ def Game_Render():
 
             print(" ".join(Chooseable_Types))
 
-            Bottyamon_type = input("Choose a type: ")
+            Bottyamon_type = input("Choose a type: ").lower()
 
             Vane = False
 
             while (Vane == False):
                 for i in Chooseable_Types:
-                    if(i == Bottyamon_type):
+                    if(i.lower() == Bottyamon_type):
                         Vane = True
                 if (Vane == False):
                     print("You didnt choose the correct type")
@@ -241,15 +242,14 @@ def Game_Render():
 
             hp = random.randint(10,50)
 
-            Bottyamons.append(Bottyamon(name, Bottyamon_type, hp, hp,random.randint(1,10),random.randint(1,10),random.randint(1,10),100,1))
+            Bottyamons.append(Bottyamon(name, Bottyamon_type, hp, hp,random.randint(1,10),random.randint(1,10),random.randint(1,10),random.randint(30,100),1))
 
             print("Your first bottyamon stats are:")
 
-            print(Bottyamons[0].hp)
-            print(Bottyamons[0].attack)
-            print(Bottyamons[0].defense)
-            print(Bottyamons[0].speed)
-            print(Bottyamons[0].lvl)
+            print("Hp:", Bottyamons[0].hp)
+            print("Attack:", Bottyamons[0].attack)
+            print("Defense:", Bottyamons[0].defense)
+            print("Speed:", Bottyamons[0].speed)
 
             input("Would you like to start your adventure?")
         else:
